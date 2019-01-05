@@ -9,23 +9,20 @@
                     <div class="card-body">
                         <table class="table table-striped table-dark">
                             <thead>
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Company</th>
-                                <th scope="col">Amount</th>
-                            </tr>
+                                <tr>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Company</th>
+                                    <th scope="col">Amount</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <th scope="row">01/01/2019</th>
-                                <td>DigiSphere</td>
-                                <td>$1250.00</td>
-                            </tr>
-                            <tr>
-                                <th scope="row">01/01/2019</th>
-                                <td>Burn</td>
-                                <td>$180.00</td>
-                            </tr>
+                                @foreach ($incomes as $income)
+                                    <tr>
+                                        <th>{{ $income->date }}</th>
+                                        <td>{{ $income->company }}</td>
+                                        <td>{{ $income->amount }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                         <form>
