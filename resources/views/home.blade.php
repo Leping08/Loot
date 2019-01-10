@@ -10,9 +10,9 @@
                         <table class="table table-striped table-dark">
                             <thead>
                                 <tr>
-                                    <th scope="col">Date</th>
-                                    <th scope="col">Company</th>
-                                    <th scope="col">Amount</th>
+                                    <th>Date</th>
+                                    <th>Company</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -25,18 +25,30 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <form>
+
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
+                        <form method="POST" action="/income">
+                            @csrf
                             <div class="form-group">
                                 <label for="date">Date</label>
-                                <input type="date" class="form-control" id="date">
+                                <input type="date" class="form-control" id="date" name="date">
                             </div>
                             <div class="form-group">
                                 <label for="company">Company Name</label>
-                                <input type="text" class="form-control" id="company">
+                                <input type="text" class="form-control" id="company" name="company">
                             </div>
                             <div class="form-group">
                                 <label for="amount">Amount</label>
-                                <input type="number" class="form-control" id="amount">
+                                <input type="number" step="0.01" class="form-control" id="amount" name="amount">
                             </div>
                             <button type="submit" class="btn btn-primary">Add</button>
                         </form>
