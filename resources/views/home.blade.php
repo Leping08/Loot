@@ -20,7 +20,7 @@
                                     <tr>
                                         <th>{{ $income->date }}</th>
                                         <td>{{ $income->company }}</td>
-                                        <td>{{ $income->amount }}</td>
+                                        <td>${{ $income->amount }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -67,52 +67,39 @@
                                     <th scope="col">Type</th>
                                     <th scope="col">Amount</th>
                                 </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <th scope="row">01/01/2019</th>
-                                    <td>Car Payment</td>
-                                    <td>Loan</td>
-                                    <td>$310.00</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">01/01/2019</th>
-                                    <td>HOA</td>
-                                    <td>Housing</td>
-                                    <td>$315.00</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">01/01/2019</th>
-                                    <td>Electric</td>
-                                    <td>Housing</td>
-                                    <td>$87.00</td>
-                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($expenses as $expense)
+                                    <tr>
+                                        <th>{{ $expense->date }}</th>
+                                        <td>{{ $expense->name }}</td>
+                                        <td>{{ $expense->type->name }}</td>
+                                        <td>${{ $expense->amount }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                        <form>
+                        <form method="POST" action="/expenses">
+                                @csrf
                             <div class="form-group">
                                 <label for="date">Date</label>
-                                <input type="date" class="form-control" id="date">
+                                <input type="date" class="form-control" id="date" name="date">
                             </div>
                             <div class="form-group">
                                 <label for="name">Name</label>
-                                <input type="text" class="form-control" id="name">
+                                <input type="text" class="form-control" id="name" name="name">
                             </div>
                             <div class="form-group">
                                 <label for="type">Type</label>
-                                <select class="form-control form-control-lg" id="type">
-                                    <option>Health</option>
-                                    <option>Education</option>
-                                    <option>Utilities</option>
-                                    <option>Loan</option>
-                                    <option>Entertainment</option>
-                                    <option>Food</option>
-                                    <option>Other</option>
+                                <select class="form-control form-control-lg" id="type" name="type_id">
+                                    @foreach ($expenseType as $type)
+                                        <option value="{{$type->id}}">{{$type->name}}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label for="amount">Amount</label>
-                                <input type="number" class="form-control" id="amount">
+                                <input type="number" class="form-control" id="amount" name="amount">
                             </div>
                             <button type="submit" class="btn btn-primary">Add</button>
                         </form>

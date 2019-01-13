@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\ExpenseType;
 use App\Income;
+use App\Expenses;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -25,6 +27,8 @@ class HomeController extends Controller
     public function index()
     {
         $incomes = Income::all();
-        return view('home', compact('incomes'));
+        $expenses = Expenses::all();
+        $expenseType = ExpenseType::all();
+        return view('home', compact('incomes', 'expenses', 'expenseType'));
     }
 }
